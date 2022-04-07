@@ -1,0 +1,258 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: CC
+ * @Date: 2022-02-15 21:31:36
+ * @LastEditors: sueRimn
+ * @LastEditTime: 2022-03-14 17:07:44
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // yield后面接普通值
+    function* gen() {
+      yield 1
+      yield 2
+      yield 3
+      return 888
+    }
+    const g = gen()
+    // 此时的 g是一个迭代器对象  原型上的方法有 next  throw  return 
+    /* 
+      next 继续执行 用来执行执行器
+      throw 用来抛出错误
+        一旦 Generator 执行过程中抛出错误，且没有被内部捕获 就不会再执行下去了。
+        (分两种方式)
+          1、内部捕获 继续执行
+          2、外部捕获  不会继续执行
+        如果此后还调用next方法，将返回一个value属性等于undefined、done属性等于true的对象，
+        即 JavaScript 引擎认为这个 Generator 已经运行结束了。
+      return 用来终止遍历Generator 函数。
+    
+    */
+    console.log(g.next()) // { value: 1, done: false }
+    console.log(g.next()) // { value: 2, done: false }
+    console.log(g.next()) // { value: 3, done: false }
+    console.log(g.next()) // { value: undefined, done: true }
+
+    // throw 内部捕获 
+
+    /* 
+      var gen = function* gen(){
+      try {
+      yield console.log('a');
+        } catch (e) {
+      // ...
+      }
+        yield console.log('b');
+        yield console.log('c');
+      }
+      var g = gen();
+      g.next() // a
+      g.throw() // b
+      g.next() // c
+      ------------------------------------------------------
+      上面代码中，g.throw方法被捕获以后，自动执行了一次next方法，
+      所以会打印b。另外，也可以看到，只要 Generator 函数内部部署了try...catch代码块，
+      那么遍历器的throw方法抛出的错误，不影响下一次遍历。
+ 
+ 
+       // throw 外部捕获 
+      var gent = function* gen() {
+        yield console.log('a');
+        yield console.log('b');
+        yield console.log('c');
+      }
+      var g = gent();
+      try {
+          g.next() // a
+          g.throw('error')  
+          g.next() //未执行
+      } catch (e) {
+          console.log('e', e);   //e error
+      }
+
+       ------------------------------------------------------
+      上面代码中，g.throw方法被外部捕获以后，抛出错误 后续的代码不会执行
+     
+       */
+    /* 
+    Generator.prototype.return()
+
+
+      function* gen() {
+          yield 1;
+          yield 2;
+          yield 3;
+      }
+      var g = gen();
+      g.next()        // { value: 1, done: false }
+      g.return('foo') // { value: "foo", done: true }   //如果不加参数‘foo’ 最终的返回值是undefined
+      g.next()        // { value: undefined, done: true }
+    
+
+      // 如果 Generator 函数内部有try...finally代码块，且正在执行try代码块，
+      // 那么return()方法会导致立刻进入finally代码块，执行完以后，整个函数才会结束 最终返回值是return传入的值
+
+        function* numbers () {
+              yield 1;
+              try {
+                yield 2;
+                yield 3;
+              } finally {
+                yield 4;
+                yield 5;
+              }
+                yield 6;
+        }
+          var g = numbers();
+          g.next() // { value: 1, done: false }
+          g.next() // { value: 2, done: false }
+          g.return(7) // { value: 4, done: false }
+          g.next() // { value: 5, done: false }
+          g.next() // { value: 7, done: true }
+    */
+
+
+
+    console.log('=================');
+
+    function* genthrow() {
+      yield console.log('111');
+      yield console.log('222');
+      yield console.log('333');
+      return 888
+    }
+    const gthrow = genthrow()
+
+    console.log('=========throwStart==========');
+    // console.log(gthrow.next())
+    // console.log(gthrow.next())
+    // console.log(gthrow.next())
+
+    try {
+      gthrow.next()
+      gthrow.throw('err')
+      gthrow.next()
+      gthrow.next()
+    } catch (e) {
+      console.log('e', e);
+    }
+
+    // gthrow.throw('err')
+    // console.log(gthrow.next())
+    // console.log(gthrow.next())
+
+    console.log('=========throwEnd==========');
+
+    // yield后面接函数  
+    function fn(num) {
+      return num
+    }
+    function* gen() {
+      yield fn(1)
+      yield fn(2)
+      return 3
+    }
+    const g2 = gen()
+    console.log(g2.next())
+    // 1
+    // { value: 1, done: false }
+    console.log(g2.next())
+    // 2
+    //  { value: 2, done: false }
+    console.log(g2.next())
+    // { value: 3, done: true }
+
+
+
+    console.log('================');
+
+
+    // yield后面接Promise
+    function fn(num) {
+      return new Promise(resolve => {
+        setTimeout(() => {
+          resolve(num)
+        }, 1000)
+      })
+    }
+    function* gen() {
+      yield fn(1)
+      yield fn(2)
+      return 3
+    }
+    // const g3 = gen()
+    // console.log(g3.next()) // { value: Promise { <pending> }, done: false }
+    // console.log(g3.next()) // { value: Promise { <pending> }, done: false }
+    // console.log(g3.next()) // { value: 3, done: true }
+
+
+
+    // 获取promise的结果
+    // const g3 = gen().next().value
+    // g3.then(res => {
+    //   console.log('res', res);
+    //   const g4 = gen().next().value
+    //   g4.then(res => {
+    //     console.log('res', res);
+    //   })
+    // })
+
+    console.log('=========next函数传参========');
+    /* 
+      generator函数可以用next方法来传参，并且可以通过yield来接收这个参数，注意两点
+      第一次next传参是没用的，只有从第二次开始next传参才有用
+      next传值时，要记住顺序是，先右边yield，后左边接收参数
+    */
+
+    function* gen1() {
+      const num1 = yield 1
+      console.log(num1 + 'aaaa')
+      const num2 = yield 2
+      console.log(num2 + 'bbbb')
+      return 3
+    }
+    const g5 = gen1()
+    console.log(g5.next()) // { value: 1, done: false }
+    console.log(g5.next('00000'))   // 这行代码执行的时候，将num1的值赋为传入的值（'00000'）
+
+
+    console.log(g5.next('11111'))
+    // 11111
+    //  { value: 2, done: false }
+    // 22222
+    // { value: 3, done: true }
+
+    console.log('=========可遍历对象========');
+
+
+
+    function* gen2() {
+      yield 1
+      yield 2
+      yield 3
+      yield 4
+      yield 5
+    }
+    // gen()​ 不会立即执行，而是一上来就暂停，返回一个 ​Iterator ​对象   可以通过  for of  遍历
+    let g6 = gen2()
+
+    for (item of g6) {
+      console.log('item', item);
+      console.log(item)
+    }
+
+  </script>
+</body>
+
+</html>
