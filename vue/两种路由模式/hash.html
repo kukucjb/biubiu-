@@ -1,0 +1,74 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: CC
+ * @Date: 2022-03-24 21:27:48
+ * @LastEditors: sueRimn
+ * @LastEditTime: 2022-03-25 09:30:07
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <ul id="menu">
+    <li>
+      <a href="#index">首页</a>
+    </li>
+    <li>
+      <a href="#news">资讯</a>
+    </li>
+    <li>
+      <a href="#user">个人中心</a>
+    </li>
+    <li onclick="fn()">
+      前进
+    </li>
+    <li onclick="fn1()">
+      后退
+    </li>
+  </ul>
+
+  <div id="app"></div>
+</body>
+<script>
+  //在window.onhashchange中获取hash值，根据不同的值，修改app中不同的内容，起到了路由的效果
+  function hashChange(e) {
+
+    let app = document.getElementById('app')
+
+    console.log('location.hash', location.hash);
+    
+    switch (location.hash) {
+      case '#index':
+        app.innerHTML = '<h1>这是首页内容</h1>'
+        break
+      case '#news':
+        app.innerHTML = '<h1>这是新闻内容</h1>'
+        break
+      case '#user':
+        app.innerHTML = '<h1>这是个人中心内容</h1>'
+        break
+      default:
+        app.innerHTML = '<h1>404</h1>'
+    }
+  }
+  window.onhashchange = hashChange
+  hashChange()
+
+  function fn() {
+    history.forward();
+  }
+
+  function fn1() {
+    history.back();
+  }
+</script>
+
+</html>

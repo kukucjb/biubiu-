@@ -1,0 +1,86 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: CC
+ * @Date: 2022-03-15 19:52:33
+ * @LastEditors: sueRimn
+ * @LastEditTime: 2022-03-16 09:01:20
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+
+    /* 
+    实现一个LazyMan，可以按照以下方式调用:
+    LazyMan(“Hank”)输出:
+    Hi! This is Hank!
+    
+    LazyMan(“Hank”).sleep(10).eat(“dinner”)输出
+    Hi! This is Hank!
+    //等待10秒..
+    Wake up after 10
+    Eat dinner~
+    
+    LazyMan(“Hank”).eat(“dinner”).eat(“supper”)输出
+    Hi This is Hank!
+    Eat dinner~
+    Eat supper~
+    
+    LazyMan(“Hank”).eat(“supper”).sleepFirst(5)输出
+    //等待5秒
+    Wake up after 5
+    Hi This is Hank!
+    Eat supper
+    
+    
+    */
+    class Lazymen {
+      constructor(name) {
+        this.tasks = []
+        const task = () => {
+          console.log(`我是${name}`);
+          this.next()
+        }
+        this.tasks.push(task)
+        let self = this
+        setTimeout(
+          () => {
+            this.next()
+          }
+          , 1000)
+      }
+      next() {
+        // console.log('this',this);
+        let task = this.tasks.shift();
+        task && task()
+      }
+
+      eat(name) {
+        const task = () => {
+          console.log(`我吃${name}`);
+          this.next()
+        }
+        this.tasks.push(task)
+        return this
+      }
+    }
+    new Lazymen('张三').eat('apple')
+
+
+
+  
+
+
+  </script>
+</body>
+
+</html>

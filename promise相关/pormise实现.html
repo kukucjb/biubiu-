@@ -1,0 +1,177 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: CC
+ * @Date: 2022-02-17 15:42:07
+ * @LastEditors: sueRimn
+ * @LastEditTime: 2022-03-10 09:16:23
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- <script src="./Promise.js"> </script> -->
+
+  <script>
+    // let p = new Promise((resolve, reject) => {
+    //   // resolve('100')
+    //   setTimeout(() => {
+    //     // resolve('succ')
+    //     reject('rejectval')
+    //     // throw new Error('error')
+    //   }, 1000);
+    // })
+
+
+    // p.then(val => {
+    //   console.log(1111);
+    // }).then(val => {
+    //   console.log(2222);
+    // }).then(val => {
+    //   console.log(3333);
+    // }).then(val => {
+    //   console.log(4444);
+    // }).catch(val => {
+    //   console.log('val', val);
+    // })
+
+    // console.log('p', p);
+
+    // console.log(t);
+    // ===================== promise.catch ===================
+    // 错误穿透   promise.catch
+    // let p = new Promise((resolve, reject) => {
+    //   // setTimeout(() => {
+    //     reject('error')
+    //   // }, 1000)
+    // })
+    // let ttt = p.catch(reason => {
+    //   console.log('reason',reason);
+    // })
+
+
+    // console.log('ttt',ttt);
+
+
+    // 值传递
+
+    // let p2 = new Promise((resolve, reject) => {
+    //   setTimeout(() => {
+    //     resolve('aaa');
+    //   })
+    // })
+
+    // p2.then().then().then(res => {
+    //   console.log(res);
+    // }, rej => {
+    //   console.log(rej);
+    // })
+
+    // =======================Promise.resolve()=============================
+
+    // let p3 = Promise.resolve("Promise1")
+    // console.log('p3', p3);
+
+    // let p4 = Promise.resolve(new Promise((resolve, reject) => {
+    //   resolve('Promise2');
+    // }))
+
+    // console.log('p4', p4);
+
+
+
+    // ========================Promise.reject()============================
+
+    // let p5 = Promise.reject('value')
+
+    // console.log('p5', p5);
+
+    // let p6 = Promise.reject(new Promise((resolve, reject) => {
+    //   reject('Promise6');
+    // }))
+
+    // console.log('p6', p6);
+
+
+
+
+    // ==================Promise.all()============================ 
+
+
+
+    let pp1 = Promise.resolve("Promise1")
+    let pp2 = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve('Promise2')
+      }, 1000)
+    })
+    let pp3 = Promise.resolve("Promise3")
+
+    // let result = Promise.all2([pp1, pp2, pp3])
+    // console.log(result);
+
+
+
+    // ==================Promise.race()============================ 
+
+
+    // let ppp1 = Promise.resolve("Promise1")
+    // let ppp2 = new Promise((resolve, reject) => {
+    //   setTimeout(() => {
+    //     resolve('Promise2')
+    //   }, 1000)
+    // })
+    // let ppp3 = Promise.resolve("Promise3")
+
+    // let raceresult = Promise.race([ppp2, ppp1, ppp3])
+
+    // console.log('raceresult', raceresult);
+
+
+
+    // ==================Promise.then() 优化 ============================ 
+    // ============ promise.then 是异步执行的==================   then 函数内部加 setTimeout  
+    //  setTimeout(() =>{
+    //   console.log('setTimeout');
+    // },1000)
+    //  let t1 = new Promise((resolve, reject) => {
+    //    resolve('Promise')
+    //    console.log('new Promise');
+    //  })
+
+    //  t1.then(val=>{
+    //    console.log('then',val);
+    //  })
+    //  console.log('1');
+
+
+
+    // ==================Promise.allSettled()() 优化 ============================
+
+    const promise1 = Promise.resolve(3);
+    const promise2 = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        reject('foo')
+      }, 1000)
+    });
+    const promises = ['500',promise1, promise2];
+
+    Promise.allSettled(promises).then((results) => {
+      console.log('results',results);
+      // results.forEach((result) => console.log(result))
+    }
+    );
+
+  </script>
+
+
+</body>
+
+</html>

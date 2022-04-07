@@ -1,0 +1,44 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: CC
+ * @Date: 2022-02-15 15:45:13
+ * @LastEditors: sueRimn
+ * @LastEditTime: 2022-02-15 15:48:57
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <img src="./img/img1.png" alt="">
+  <script>
+    console.log(1)
+    setTimeout(() => {
+      console.log(2)
+      Promise.resolve().then(() => {
+        console.log(3)
+      })
+    });
+    console.log(4)
+    new Promise((resolve, reject) => {
+      console.log(5)
+      resolve()
+    }).then(() => {
+      console.log(6)
+      setTimeout(() => {
+        console.log(7)
+      })
+    })
+    console.log(8)
+
+  </script>
+</body>
+
+</html>

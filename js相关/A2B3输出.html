@@ -1,0 +1,74 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: CC
+ * @Date: 2022-03-25 16:54:20
+ * @LastEditors: sueRimn
+ * @LastEditTime: 2022-03-25 17:43:19
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    //  给定 A2B3 输出 AABBB
+    let str = 'A2B3'
+    // 解法1
+    function format(str) {
+      let arr = str.match(/[A-Z]\d/g)
+      console.log(arr);
+      let newstr = ''
+      for (var i = 0; i < arr.length; i++) {
+        for (var j = 1; j <= parseInt(arr[i][1]); j++) {
+          newstr += arr[i][0]
+        }
+      }
+      return newstr
+    }
+    console.log(' format(str)', format(str));
+
+    // 解法2 正则
+    let result = str.replace(/(([a-zA-Z]+)(\d+))/g, (match, content, char, repeat) => {
+      return String(char).repeat(repeat)
+    })
+
+    function formatSimpleStr(str) {
+      let result = str.replace(/(([a-zA-Z]+)(\d+))/g, (match, content, char, repeat) => {
+        return String(char).repeat(repeat)
+      })
+      return result
+    }
+
+
+    // 嵌套
+    let str3 = 'C4(A(A3B)2)2'
+    // let mat = str3.replace(/\(([^\(\)]*)\)(\d)/g, (a, b, c) => {
+    //   return String(b).repeat(c)
+    // })
+
+    function formatStr(str) {
+      while (str.indexOf('(') !== -1) {
+        str = str.replace(/\(([^\(\)]*)\)(\d)/g, (a, b, c) => {
+          return String(b).repeat(c)
+        })
+      }
+      return str
+    }
+    console.log(formatStr(str3));
+
+    let finalResult = formatSimpleStr(formatStr(str3))
+
+
+    console.log('finalResult',finalResult);
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: CC
+ * @Date: 2022-03-28 14:49:53
+ * @LastEditors: sueRimn
+ * @LastEditTime: 2022-03-29 10:57:43
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    /*
+    如果不存在公共前缀，返回空字符串 ""。
+
+    示例 1：输入：strs = ["flower","flow","flight"] 输出："fl"
+
+    示例 2：输入：strs = ["dog","racecar","car"] 输出："" 解释：输入不存在公共前缀。
+
+    */
+
+    var longestCommonPrefix = function (strs) {
+      let item1 = strs[0] ||'';
+      let item2 = strs[1] || '';
+
+      function format() {
+        for (var i = 1; i <= item1.length; i++) {
+          let str = item1.substr(0, i)
+          if (item2.indexOf(str) != 0) {
+            return item1.substr(0, i - 1)
+          }
+        }
+      }
+      let str = format()
+      if(str==''){
+        return ''
+      }
+      while (!strs[2].startsWith(str)) {
+        str = str.slice(0, -1)
+      }
+      return str
+    };
+
+    let strs = ["flower", "flow", "flight"]
+    let a = longestCommonPrefix(strs)
+    console.log('a', a);
+
+
+
+  </script>
+</body>
+
+</html>

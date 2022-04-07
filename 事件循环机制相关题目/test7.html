@@ -1,0 +1,103 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: CC
+ * @Date: 2022-03-15 15:19:29
+ * @LastEditors: sueRimn
+ * @LastEditTime: 2022-03-15 17:13:49
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // async function async1() {
+    //   console.log('1');
+    //   await async2()
+    //   console.log('async1 end')
+    // }
+    // async function async2() {
+    //   console.log('async2 end')
+    //   return Promise.resolve().then(() => {
+    //     console.log('async2 end1')
+    //   })
+    // }
+    // async1()
+
+    // setTimeout(function () {
+    //   console.log('setTimeout')
+    // }, 0)
+
+    // new Promise(resolve => {
+    //   console.log('Promise')
+    //   resolve()
+    // })
+    //   .then(function () {
+    //     console.log('promise1')
+    //   })
+    //   .then(function () {
+    //     console.log('promise2')
+    //   })
+    /*
+          如果await后面跟的是一个异步函数的调用，比如上面的代码
+          此时执行完awit并不先把await后面的代码注册到微任务队列中去，而是执行完await之后，
+          直接跳出async1函数，执行其他代码。然后遇到promise的时候，把promise.then注册为微任务。
+          其他代码执行完毕后，需要回到async1函数去执行剩下的代码，然后把await后面的代码注册到微任务队列当中，
+          注意此时微任务队列中是有之前注册的微任务的。所以这种情况会先执行async1函数之外的微任务(promise1,promise2)，
+          然后才执行async1内注册的微任务(async1 end). 可以理解为，这种情况下，await 后面的代码会在本轮循环的最后被执行.
+          */
+
+
+
+
+
+    // async function async1() {
+    //   console.log('1');
+    //   await async2()
+    //   console.log('async1 end')
+    // }
+    // async function async2() {
+    //   console.log('async2 end')
+    //   return Promise.resolve().then(() => {
+    //     console.log('async2 end1')
+    //   })
+    // }
+    // async1()
+
+    console.log('1');
+    new Promise((resolve, reject) => {
+      console.log('async2 end')
+      return Promise.resolve().then(() => {
+        console.log('async2 end1')
+        resolve()
+      })
+    }).then(() => {
+      console.log('async1 end')
+    })
+
+    setTimeout(function () {
+      console.log('setTimeout')
+    }, 0)
+
+    new Promise(resolve => {
+      console.log('Promise')
+      resolve()
+    })
+      .then(function () {
+        console.log('promise1')
+      })
+      .then(function () {
+        console.log('promise2')
+      })
+
+  </script>
+</body>
+
+</html>

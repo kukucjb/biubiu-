@@ -1,0 +1,40 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: CC
+ * @Date: 2022-02-09 16:54:25
+ * @LastEditors: sueRimn
+ * @LastEditTime: 2022-02-09 17:10:57
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    //js休眠几秒后执行
+    function sleep2(ms) {
+      return new Promise(resolve => setTimeout(() => {
+        console.log('延迟');
+        resolve()
+      }, ms));
+    }
+    async function test() {
+      console.log(00);
+      await sleep2(1000)
+      console.log(11);
+    }
+
+    test()
+
+
+  </script>
+</body>
+
+</html>

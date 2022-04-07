@@ -1,0 +1,75 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: CC
+ * @Date: 2022-03-08 08:46:40
+ * @LastEditors: sueRimn
+ * @LastEditTime: 2022-03-08 08:55:08
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="a">
+    <div id="b">
+      <div id="c">
+        <div id="d">哈哈哈哈哈</div>
+      </div>  
+    </div>
+  </div>
+  <script>
+    const a = document.getElementById('a')
+    const b = document.getElementById('b')
+    const c = document.getElementById('c')
+    const d = document.getElementById('d')
+    // false：默认，代表冒泡时绑定
+    // true：代表捕获时绑定
+    a.addEventListener('click', (e) => {
+      const {
+        target,
+        currentTarget
+      } = e
+      console.log(`target是${target.id}`)
+      console.log(`currentTarget是${currentTarget.id}`)
+    })
+    b.addEventListener('click', (e) => {
+      const {
+        target,
+        currentTarget
+      } = e
+      console.log(`target是${target.id}`)
+      console.log(`currentTarget是${currentTarget.id}`)
+    })
+    c.addEventListener('click', (e) => {
+      const {
+        target,
+        currentTarget
+      } = e
+      console.log(`target是${target.id}`)
+      console.log(`currentTarget是${currentTarget.id}`)
+    })
+    d.addEventListener('click', (e) => {
+      const {
+        target,
+        currentTarget
+      } = e
+      console.log(`target是${target.id}`)
+      console.log(`currentTarget是${currentTarget.id}`)
+    })
+
+//区别 
+// target 是 触发事件的元素
+// currentTarget 是绑定事件的元素
+
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: CC
+ * @Date: 2022-03-25 14:53:34
+ * @LastEditors: sueRimn
+ * @LastEditTime: 2022-03-25 15:38:07
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // promise.all中任何一个promise 出现错误的时候都会执行reject，导致其它正常返回的数据也无法使用。
+    // 需求就是 获取到成功的值
+    // 核心思想  对每一个promise 提前执行   返回一个新的promise 将catch到的值 resolve() 出去  如 ret ret2函数
+    let p1 = Promise.reject('err')
+    let p2 = Promise.resolve('succ1')
+    let p3 = Promise.resolve('succ2')
+
+    let ret = function (p) {
+      return new Promise((resolve, reject) => {
+        p.then(res => {
+          resolve(res)
+        }).catch(e => {
+          resolve(e)
+        })
+      })
+    }
+
+    let ret2 = async function (p) {
+      try {
+        let result = await p
+        return result
+      } catch (e) {
+      }
+    }
+
+    let t1 = Promise.all([p1, p2, p3].map(item => {
+      return ret2(item)
+    }))
+    console.log(t1);
+
+    // 第二种方式  使用 Promise.allSettled
+
+    let result = Promise.allSettled([p1, p2, p3])
+      .then(res => {
+        console.log('resolve:', res);
+      })
+      .catch(err => {
+        console.log('reject:', err);
+      });
+    console.log('result', result);
+
+    // 返回值
+    // { status: 'rejected', reason: 'err' }
+    // { status: 'fulfilled', value: 'succ1' }
+    // { status: 'fulfilled', value: 'succ2' }
+
+
+
+
+  </script>
+</body>
+
+</html>

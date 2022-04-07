@@ -1,0 +1,100 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: CC
+ * @Date: 2022-03-25 08:48:14
+ * @LastEditors: sueRimn
+ * @LastEditTime: 2022-03-25 10:06:11
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!--html:-->
+  <ul id="menu">
+    <li>
+      <a href="/index">首页</a>
+    </li>
+    <li>
+      <a href="/news">资讯</a>
+    </li>
+    <li>
+      <a href="/user">个人中心</a>
+    </li>
+
+  </ul>
+  <div id="app"></div>
+
+</body>
+
+</html>
+<script>
+  class Router {
+    constructor() {
+      this.routers = []
+      this.renderCallback = null
+    }
+    add(route, callback) {
+      this.routers.push({
+        path: route,
+        render: callback
+      })
+    }
+    pushState(path, data = {}) {
+      window.history.pushState(data, '', path)
+      this.renderHtml(path)
+    }
+
+    changeA() {
+      document.addEventListener('click', (e) => {
+        if (e.target.nodeName === 'A') {
+          e.preventDefault()
+          let path = e.target.getAttribute('href')
+          this.pushState(path)
+        }
+      })
+    }
+    listen(callback) {
+      this.renderCallback = callback
+      // 只有在做出浏览器动作时，才会触发该事件，如用户点击浏览器的回退按钮（或者在Javascript代码中调用history.back()或者history.forward()方法）
+      window.onpopstate = () => this.renderHtml(this.getCurrentPath())
+      this.changeA()
+    }
+    getCurrentPath() {
+      return window.location.pathname
+    }
+    renderHtml(path) {
+      for (let i = 0; i < this.routers.length; i++) {
+        const element = this.routers[i];
+        if (element.path == path) {
+          this.renderCallback(element.render())
+          // let app = document.getElementById('app')
+          // app.innerHTML = element.render()
+        }
+      }
+    }
+  }
+
+  let router = new Router()
+  router.add('/index', () => {
+    return '<h1>这是首页内容</h1>'
+  })
+  router.add('/news', () => {
+    return '<h1>这是新闻内容</h1>'
+  })
+  router.add('/user', () => {
+    return '<h1>这是个人中心内容</h1>'
+  })
+  router.listen((renderHtml) => {
+    let app = document.getElementById('app')
+    app.innerHTML = renderHtml
+  })
+
+</script>

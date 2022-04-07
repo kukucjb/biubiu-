@@ -1,0 +1,118 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: CC
+ * @Date: 2022-03-24 16:55:14
+ * @LastEditors: sueRimn
+ * @LastEditTime: 2022-03-24 19:28:08
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width==device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+
+    var isValid = function (s) {
+      debugger
+      let arr = [];
+      for (let i in s) {
+        // console.log(s[i]);
+        arr.push(s[i])
+        let len = arr.length
+        if (compare(arr[len - 2], arr[len - 1])) {
+          arr.pop()
+          arr.pop()
+        }
+      }
+
+      return arr.length == 0 ? true : false
+
+      function compare(a, b) {
+        if (a == '(' && b == ')') {
+          return true
+        }
+        if (a == '[' && b == ']') {
+          return true
+        }
+        if (a == '{' && b == '}') {
+          return true
+        }
+        return false
+      }
+    };
+
+    var isValid2 = function (s) {
+      debugger
+      const n = s.length;
+      if (n % 2 === 1) {
+        return false;
+      }
+      const pairs = new Map([
+        [')', '('],
+        [']', '['],
+        ['}', '{']
+      ]);
+      const stk = [];
+      for (let ch of s) {
+        if (pairs.has(ch)) {
+          if (!stk.length || stk[stk.length - 1] !== pairs.get(ch)) {
+            return false;
+          }
+          stk.pop();
+        }
+        else {
+          stk.push(ch);
+        }
+      };
+      return !stk.length;
+    };
+
+    let s1 = "{[)}})" 
+    isValid2(s1)
+
+
+    var isValid3 = function (s) {
+      while (true) {
+        let len = s.length;
+        s = s.replace('()', '')
+        s = s.replace('{}', '')
+        s = s.replace('[]', '')
+        if (len == s.length) {
+          return false;
+        }
+        if (s.length == 0) {
+          return true
+        }
+      }
+    };
+
+
+    const map = new Map([
+      ['name', '张三'],
+      ['title', 'Author']
+    ]);
+
+    console.log('map', map);
+
+
+    const pairs = new Map([
+        [')', '('],
+        [']', '['],
+        ['}', '{']
+      ]);
+    console.log('pairs', pairs);
+
+    console.log('pairs', pairs.has('('));
+    console.log('pairs', pairs.has(')'));
+
+  </script>
+</body>
+
+</html>

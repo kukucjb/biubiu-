@@ -1,0 +1,87 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: CC
+ * @Date: 2022-03-17 11:13:20
+ * @LastEditors: sueRimn
+ * @LastEditTime: 2022-03-17 14:42:57
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <img src="./img//nextTick.jpg" alt="">
+  <h3>Vue 在更新 DOM 时是异步执行的。只要侦听到数据变化，Vue 将开启一个队列，并缓冲在同一事件循环中发生的所有数据变更。如果同一个 watcher
+    被多次触发，只会被推入到队列中一次。这种在缓冲时去除重复数据对于避免不必要的计算和 DOM 操作是非常重要的。然后，在下一个的事件循环“tick”中，Vue 刷新队列并执行实际 (已去重的) 工作。Vue
+    在内部对异步队列尝试使用原生的 Promise.then、MutationObserver 和 setImmediate，如果执行环境不支持，则会采用 setTimeout(fn, 0) 代替。
+  </h3>
+
+  <h2>自己理解:为什么this.$nextTick 能够获取更新后的DOM？</h2>
+  <h3>
+    调用this.$nextTick 其实就是调用nextTick 方法，在异步队列中执行回调函数。根据先进先出原则，修改Data
+    触发的更新异步队列会先得到执行，执行完成后就生成了新的DOM，接下来执行this.$nextTick 的回调函数时，能获取到更新后的DOM元素了。
+  </h3>
+
+  <h3>vue异步更新的原理</h3>
+  <h4>
+    <ul>
+      <li>修改 Vue 中的 Data 时，就会触发所有和这个 Data 相关的 Watcher 进行更新</li>
+      <li>首先，会将所有的 Watcher 加入队列 Queue。
+      </li>
+      <li>然后，调用 nextTick 方法，执行异步任务。</li>
+      <li>在异步任务的回调中，对 Queue 中的 Watcher 进行排序，然后执行对应的 DOM 更新。</li>
+    </ul>
+  </h4>
+
+  相关链接
+  <h5>https://juejin.cn/post/6844904169967452174#heading-1</h5>
+  <h5>https://zhuanlan.zhihu.com/p/364479245</h5>
+
+
+  <script>
+
+    // 基本实现
+    function nextTick(cb) {
+      let _resolve
+      //   callbacks 用来 存放异步执行的回调
+   
+      callbacks.push(() => {
+        if (cb) {
+          try {
+            cb.call(ctx)
+          } catch (e) {
+            handleError(e, ctx, 'nextTick')
+          }
+        } else if (_resolve) {
+          _resolve(ctx)
+        }
+      })
+      if (!pending) {
+        // 用来控制同一时间内只有 一个回调函数进入浏览器的异步队列中  （来保证一个事件循环中只调用一次 timerFunc 函数。)
+        pending = true
+        timerFunc()
+        // timerFunc  是优雅降级的过程  根据不同环境 选择不同的异步方式 Promise.then   MutationObserver  setImmediate  setTimeout
+        // 用各种异步执行的方法调用flushCallbacks 函数
+        //  在flushCallbacks 函数中拷贝callbacks中的每个函数，并执行。
+      }
+      // $flow-disable-line
+      if (!cb && typeof Promise !== 'undefined') {
+        return new Promise(resolve => {
+          _resolve = resolve
+        })
+      }
+    }
+  
+  </script>
+
+
+</body>
+
+</html>

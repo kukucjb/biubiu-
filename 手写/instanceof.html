@@ -1,0 +1,78 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: CC
+ * @Date: 2022-04-06 17:36:22
+ * @LastEditors: sueRimn
+ * @LastEditTime: 2022-04-06 17:56:27
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 原理 “其实现原理是,查找构造函数的原型对象是否在实例对象的原型链上,如果在返回true,如果不在返回false”
+    let ins = function (left, right) {
+
+      let t = left.__proto__;
+      let result = right.prototype;
+
+      while (t != null) {
+        if (t == result) {
+          return true
+        }
+        t = t.__proto__
+      }
+      return false;
+    }
+    let a = [1, 2, 3]
+
+
+    let res = ins(a, Object)
+
+    console.log('res', res);
+
+    console.log(a instanceof Object);
+
+
+    // {
+    //   const a = 'abc';
+    //   console.log(a instanceof String); // ?
+
+    //   const b = new String('abc');
+    //   console.log(b instanceof String); // ?
+    // }
+
+    // {
+    //   console.log(String instanceof String);  // ?
+    //   console.log(Object instanceof Object);  // ?
+    //   console.log(Function instanceof Function); // ?
+    //   console.log(Function instanceof Object); // ?
+    // }
+
+
+      // function per(){};
+
+      // let p = new per();
+
+      // console.log(p instanceof Object);
+
+      // console.log(p.__proto__);
+      // console.log(Object.prototype.__proto__);
+      // console.log(per.prototype);
+
+      // let arr = [1,2,3,4]
+      // console.log(arr.__proto__.__proto__.__proto__);
+
+      // console.log(arr instanceof Object);
+  </script>
+</body>
+
+</html>

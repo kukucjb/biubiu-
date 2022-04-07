@@ -1,0 +1,41 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: CC
+ * @Date: 2022-02-15 16:12:01
+ * @LastEditors: sueRimn
+ * @LastEditTime: 2022-03-14 17:37:30
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <img src="./img/img2.jpg" alt="">
+  <script>
+    setTimeout(() => {
+      console.log(1)
+    }, 0)
+    console.log(2)
+    new Promise((resolve) => {
+      console.log(3)
+      resolve()
+    }).then(() => {   //then1
+      console.log(4)
+    }).then(() => {    //then2
+      console.log(5)
+    })
+    console.log(6)
+
+
+    // 注意 promise.then() 返回值是一个promise   所以执行微任务then1以后 马上又产生了新的微任务 then2
+  </script>
+</body>
+
+</html>

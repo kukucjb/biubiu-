@@ -1,0 +1,87 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: CC
+ * @Date: 2022-03-15 14:36:38
+ * @LastEditors: sueRimn
+ * @LastEditTime: 2022-03-15 16:26:07
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <img src="./img/img6.jpg" alt="">
+  <script>
+
+    async function async1() {
+      console.log(1);
+      await async2();
+      console.log(2);
+    }
+    async function async2() {
+      console.log(3);
+    }
+    console.log(4);
+    setTimeout(function () {
+      console.log(5);
+    });
+    async1()
+    new Promise(function (resolve, reject) {
+      console.log(6);
+      resolve();
+    }).then(function () {
+      console.log(7);
+    });
+    console.log(8);
+
+
+    // 4 1 3 6 8 2 7 5
+
+    /*
+   如果await 后面直接跟的为一个变量，比如：await 1；这种情况的话相当于直接把await后面的代码注册为一个微任务，
+   可以简单理解为promise.then(await下面的代码)。然后跳出async1函数，执行其他代码，当遇到promise函数的时候，
+   会注册promise.then()函数到微任务队列，注意此时微任务队列里面已经存在await后面的微任务。
+   所以这种情况会先执行await后面的代码（async1 end），再执行async1函数后面注册的微任务代码(promise1,promise2)。
+   */
+
+    // 等同于
+
+    console.log(4); // 同步
+    setTimeout(function () {
+      console.log(5); // 异步：宏任务 setTimeout
+    });
+
+    // async1函数可转换成
+    console.log(1) // 同步
+    new Promise((resolve, reject) => {
+      console.log(3) // 同步
+      resolve()
+    }).then(() => { // 异步：微任务 then1
+      console.log(2)
+    })
+    // async1函数结束
+
+    new Promise(function (resolve, reject) {
+      console.log(6); // 同步
+      resolve();
+    }).then(function () { // 异步：微任务 then2
+      console.log(7);
+    });
+    console.log(8); // 同步
+
+
+
+
+
+
+  </script>
+</body>
+
+</html>

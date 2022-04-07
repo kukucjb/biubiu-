@@ -1,0 +1,46 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: CC
+ * @Date: 2021-09-14 22:13:17
+ * @LastEditors: sueRimn
+ * @LastEditTime: 2021-09-14 22:19:09
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="div1"> </div>
+  <script>
+    let dom = document.getElementById("div1")
+
+    // 第一种 dom
+    console.time("a")
+    for (let i = 0; i <= 10000; i++) {
+      dom.innerHTML = i
+    }
+    console.timeEnd("a")     //17ms
+
+    console.time("b")
+    let num = 0
+
+    for (let i = 0; i <= 10000; i++) {
+      num = i
+    }
+
+    dom.innerHTML +=num
+    console.timeEnd("b")     //0.17ms
+
+    //  diff的核心就是  把dom数据化
+
+  </script>
+</body>
+
+</html>

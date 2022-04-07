@@ -1,0 +1,90 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: CC
+ * @Date: 2022-03-24 21:27:48
+ * @LastEditors: sueRimn
+ * @LastEditTime: 2022-03-25 08:40:38
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <ul id="menu">
+    <li>
+      <a href="#index">首页</a>
+    </li>
+    <li>
+      <a href="#news">资讯</a>
+    </li>
+    <li>
+      <a href="#user">个人中心</a>
+    </li>
+    <li onclick="fn()">
+      前进
+    </li>
+    <li onclick="fn1()">
+      后退
+    </li>
+  </ul>
+
+  <div id="app"></div>
+</body>
+<script>
+  //在window.onhashchange中获取hash值，根据不同的值，修改app中不同的内容，起到了路由的效果
+  class Router {
+    constructor() {
+      this.routers = []  //存放我们的路由配置
+    }
+    add(route, callback) {
+      this.routers.push({
+        path: route,
+        render: callback
+      })
+    }
+    listen(callback) {
+      window.onhashchange = this.hashChange(callback)
+      this.hashChange(callback)()  //首次进入页面的时候没有触发hashchange，必须要就单独调用一下
+    }
+    hashChange(callback) {
+      let self = this
+      return function () {
+        let hash = location.hash
+        for (let i = 0; i < self.routers.length; i++) {
+          let route = self.routers[i]
+          if (hash === route.path) {
+            callback(route.render())
+            return
+          }
+        }
+      }
+    }
+  }
+
+  let router = new Router()
+  router.add('#index', () => {
+    return '<h1>这是首页内容</h1>'
+  })
+  router.add('#news', () => {
+    return '<h1>这是新闻内容</h1>'
+  })
+  router.add('#user', () => {
+    return '<h1>这是个人中心内容</h1>'
+  })
+
+  console.log(router);
+  router.listen((renderHtml) => {
+    let app = document.getElementById('app')
+    app.innerHTML = renderHtml
+  })
+
+</script>
+
+</html>

@@ -1,0 +1,98 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: CC
+ * @Date: 2022-03-16 14:21:19
+ * @LastEditors: sueRimn
+ * @LastEditTime: 2022-03-16 16:35:14
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    class EventEmitter {
+      constructor() {
+        //在事件被创建或者实例化的时候调用此方法
+        //注册一个空对象
+        this.events = {}
+      }
+      //绑定事件函数
+      on(type, callback) {
+        if (this.events[type]) {
+          this.events[type].push(callback);
+        } else {
+          this.events[type] = [callback]
+        }
+      }
+      //触发事件
+      emit(type, ...args) {
+        if (this.events[type]) {
+          this.events[type].forEach(element => {
+            element(...args)
+          });
+        }
+      }
+
+      off(type, callback) {
+        if (this.events[type]) {
+          this.events[type] = this.events[type].filter(ele => {
+            return ele != callback
+          })
+        }
+      }
+      //单次监听器，只能被触发一次，下次触发就不会响应
+      once(type, callback) {
+        let onlyOnce = (...args) => {
+          callback(...args);
+          this.off(type, onlyOnce);
+        }
+        this.on(type, onlyOnce)
+      }
+    }
+    let fn1 = (name) => {
+      console.log(name + '该喝水了')
+    }
+    let fn2 = (name) => {
+      console.log(name + '该喝水了111')
+    }
+    let fn3 = (name) => {
+      console.log(name + '该喝水了222')
+    }
+    let e = new EventEmitter()
+
+    e.on('event1', fn1)
+
+    e.on('event1', fn2)
+
+    e.once('event1', fn3)
+
+
+    // e.once('event1', fn3)
+    // e.on('event2', function (name) {
+    //   console.log(name + '该吃饭了')
+    // })
+    // e.off('event1')
+    e.emit('event1', '蒋若依')
+
+
+    // e.off('event1', fn3)
+
+    e.emit('event1', '蒋若依')
+
+    // e.emit('event2', '马强')
+   
+
+    
+
+  </script>
+</body>
+
+</html>

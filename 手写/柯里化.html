@@ -1,0 +1,85 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: CC
+ * @Date: 2022-03-16 09:43:27
+ * @LastEditors: sueRimn
+ * @LastEditTime: 2022-03-16 14:08:21
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    /*  什么是函数柯里化
+    函数柯里化是把接受多个参数的函数变换成接受一个单一参数（最初函数的第一个参数）的函数，并且返回接受余下的参数而且返回结果的新函数的技术
+        为什么要函数柯里化
+        1、参数复用
+        2、提前确认
+    
+    
+    */
+    // 初步封装
+    var currying = function (fn) {
+      var args = [];
+      return function cb() {
+        if (arguments.length === 0) {
+          return fn.apply(this, args)
+        }
+        Array.prototype.push.apply(args, [].slice.call(arguments))
+        //args.push([].slice.call(arguments))
+        return cb
+      }
+    }
+
+
+    function addnum(a, b, c) {
+      console.log(a + b + c);
+    }
+    var s1 = currying(addnum);
+
+
+
+
+
+
+    // 实现一个add方法，使计算结果能够满足如下预期：
+    // add(1)(2)(3) = 6;
+    // add(1, 2, 3)(4) = 10;
+    // add(1)(2)(3)(4)(5) = 15;
+
+    function add() {
+      var args = Array.prototype.slice.call(arguments)
+
+      var _add = function () {
+        args.push(...arguments)
+        return _add
+      }
+
+
+      // 利用toString隐式转换的特性，当最后执行时隐式转换，并计算最终的值返回
+      _add.toString = function () {
+        return args.reduce(function (a, b) {
+          return a + b;
+        });
+      }
+      return _add
+    }
+
+    let a = add(1, 2, 3)(4)(5) == 15
+    console.log('a', a);
+
+
+
+
+  </script>
+</body>
+
+</html>

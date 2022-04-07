@@ -1,0 +1,184 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: CC
+ * @Date: 2022-02-15 21:18:41
+ * @LastEditors: sueRimn
+ * @LastEditTime: 2022-03-17 15:27:40
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+
+  <script>
+
+    // function request(num) { // 模拟接口请求
+    //   return new Promise(resolve => {
+    //     setTimeout(() => {
+    //       resolve(num * 2)
+    //     }, 1000)
+    //   })
+    // }
+    // function request(num) { // 去掉Promise
+    //   setTimeout(() => {
+    //     console.log(num * 2)
+    //   }, 1000)
+    // }
+    // async function fn() {
+    //   await request(1) // 2
+    //   await request(2) // 4
+    //   // 1秒后执行完  同时输出
+    // }
+    // fn()
+
+    let arr = [1, 3, 4, 5, 6]
+
+    function* f(a) {
+      console.log('执行');
+      for (var i = 0; i < a.length; i++) {
+        console.log('进入了循环');
+        yield a[i];
+      }
+    }
+
+    let gen = f(arr)
+    console.log(gen.next());
+    console.log(gen.next());
+    console.log(gen.next());
+    console.log(gen.next());
+    console.log(gen.next());
+
+
+
+    // let fun = function (a) {
+    //   console.log('CC');
+    // }
+
+    // console.log(fun)
+    // console.dir(fun)
+
+
+
+
+
+
+
+
+    // new Promise((resolve, reject) => {
+    //   console.log('1');
+    //   setTimeout(() => {
+    //     resolve('成功') // 1秒后输出 成功
+    //     // reject('成功') // 1秒后输出 失败
+    //   }, 1000)
+    // }).then((res) => {
+    //   console.log('res');
+    //   console.log(res);
+    // })
+
+
+
+    let fun = function (resolve, reject) {
+      console.log('1');
+      setTimeout(() => {
+        resolve('成功') // 1秒后输出 成功
+        // reject('成功') // 1秒后输出 失败
+      }, 1000)
+    }
+
+
+
+
+    function Person(fun) {
+      function aaaaa() {
+        console.log('aaaa');
+      }
+
+      function bbbbb() {
+        console.log('bbbb');
+      }
+    }
+
+
+    let p = new Person((a, b) => {
+      a()
+    })
+
+
+
+
+    let obj = {
+      name: "zhangsan",
+      age: 15
+    }
+    let p000 = obj
+
+    p000.name = 'lisu'
+
+    console.log('obj', obj);
+
+    console.log('p', p000);
+
+
+
+
+
+    let ppp = Promise.reject('err')
+    let p6 = Promise.reject(new Promise((resolve, reject) => {
+      reject('Promise6');
+    }))
+    // console.log('ppp', ppp);
+    // console.log('p6', p6);
+
+    p6.then(res => {
+      // resolve(res)
+      console.log('res', res);
+    }, err => {
+      // reject(err)
+      console.log('err', err);
+    })
+
+    Promise.reject('fail').then(function () {
+      // not called
+    }, function (error) {
+      console.log(error); // Stacktrace
+    });
+
+
+
+
+
+
+    console.log('-----------');
+    var gent = function* gen() {
+      yield console.log('a');
+      yield console.log('b');
+      yield console.log('c');
+    }
+    var g = gent();
+    try {
+      g.next() // a
+      g.throw('error')  
+      g.next() //未执行
+    } catch (e) {
+      console.log('e', e);   //e error
+    }
+
+
+    console.log('-----------');
+
+
+
+    
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: CC
+ * @Date: 2022-03-15 17:30:15
+ * @LastEditors: sueRimn
+ * @LastEditTime: 2022-03-15 18:14:25
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+
+    /**
+ * 模拟延时
+ * @param {number} delay 延迟时间
+ * @returns {Promise<any>}
+ */
+    function sleep(delay) {
+      return new Promise((_, reject) => {
+        setTimeout(() => reject('超时喽'), delay)
+      })
+    }
+
+    /**
+     * 模拟请求
+     */
+    function request() {
+      // 假设请求需要 1s
+      return new Promise(resolve => {
+        setTimeout(() => resolve('成功喽'), 1000)
+      })
+    }
+    // 使用race
+    function timeoutPromise(request, sleep) {
+      return Promise.race([request, sleep])
+    }
+
+    // 不使用race
+    function timeoutPromise2(request, sleep) {
+      // return Promise.race([request, sleep])
+      return new Promise((resolve, reject) => {
+        const promises = [request, sleep]
+        promises.forEach(element => {
+          element.then(res => {
+            resolve(res)
+          }, err => {
+            reject(err)
+          })
+        });
+
+      })
+    }
+    let result = timeoutPromise2(request(), sleep(2000))
+
+    result.then(res => {
+      console.log('res', res);
+    }, rej => {
+      console.log('rej', rej);
+    })
+
+  </script>
+</body>
+
+</html>
