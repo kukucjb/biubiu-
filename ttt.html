@@ -4,7 +4,7 @@
  * @Author: CC
  * @Date: 2022-03-26 14:42:42
  * @LastEditors: sueRimn
- * @LastEditTime: 2022-04-02 11:12:19
+ * @LastEditTime: 2022-04-11 16:04:02
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -19,6 +19,10 @@
     <span id="span1">span</span>
     <div id="div1">div1</div>
   </div>
+
+  <input type="text" maxlength="10">
+  <input type="testarea" id="test" maxlength="10">
+
 </body>
 
     <script>
@@ -35,5 +39,12 @@
 
      let reg = /1(3|4|5|6|7|8|9)\d{9}/
      format(str)
+
+
+     let str1 = '20260622'
+
+     let str2 = '20210111'
+
+     console.log(parseInt(str1)<parseInt(str2));
     </script>
 </html>

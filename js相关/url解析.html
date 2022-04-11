@@ -1,0 +1,48 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: CC
+ * @Date: 2022-04-07 10:53:24
+ * @LastEditors: sueRimn
+ * @LastEditTime: 2022-04-07 15:16:18
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function formatUrl(str) {
+      let obj = {}
+      let key = str.match(/([^?&]+)(?==)/g)
+      console.log('key', key);
+      let val = str.match(/(?<==)([^?&]*)/g)
+      console.log('val', val);
+
+      for(let item in key){
+        console.log('item',item);
+        obj[key[item]] = val[item]
+      }
+
+      console.log('obj',obj);
+    }
+    let str2 = 'https://juejin.cn/user?num=100&age=15&hobby=&key=500'
+
+
+    function formatUrl2(str) {
+      let key = str.match(/(?<=\?).+/g)[0].match(/([^?&]+)/g)
+      console.log('key', key);
+    }
+
+    formatUrl(str2)
+    // formatUrl2(str2)
+  </script>
+</body>
+
+</html>

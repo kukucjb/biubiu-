@@ -1,0 +1,35 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: CC
+ * @Date: 2022-04-09 15:24:47
+ * @LastEditors: sueRimn
+ * @LastEditTime: 2022-04-09 15:28:57
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+
+    let arr = [1, 2, 3, 4, 5, 6, 7]
+
+
+    arr.sort((a, b) => {
+      let t = Math.random()
+      return t > 0.5 ? a - b : b - a
+    })
+console.log(arr);
+
+    // console.log(Math.random());
+  </script>
+</body>
+
+</html>
