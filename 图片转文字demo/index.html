@@ -1,0 +1,33 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: CC
+ * @Date: 2022-04-16 15:27:41
+ * @LastEditors: sueRimn
+ * @LastEditTime: 2022-04-16 16:55:37
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- 文档地址 -->
+  <script src='https://unpkg.com/tesseract.js@v2.1.0/dist/tesseract.min.js'></script>
+  <script>
+    Tesseract.recognize(
+      'https://filetranscode-1252524126.file.myqcloud.com/file_transcode/gu22j6im0vgr2rt72d9c_tiw/picture/1.jpg',
+      'eng+chi_sim',
+      { logger: m => console.log(m) }
+    ).then(({ data: { text } }) => {
+      console.log(text);
+    })
+  </script>
+</body>
+
+</html>

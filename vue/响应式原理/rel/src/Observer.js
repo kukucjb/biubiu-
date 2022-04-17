@@ -4,7 +4,7 @@
  * @Author: CC
  * @Date: 2022-04-12 20:24:54
  * @LastEditors: sueRimn
- * @LastEditTime: 2022-04-14 19:56:45
+ * @LastEditTime: 2022-04-17 15:43:42
  */
 import { def } from './util'
 import { defineReactive } from './defineReactive';
@@ -16,8 +16,6 @@ export default class Observer {
   constructor(obj) {
     def(obj,'__ob__',this,false);
     if(Array.isArray(obj)){
-
-      console.log('obj',obj);
       Object.setPrototypeOf(obj,arrayMethods);
       this.observeArray(obj)
     }else{

@@ -4,16 +4,18 @@
  * @Author: CC
  * @Date: 2022-03-26 14:42:42
  * @LastEditors: sueRimn
- * @LastEditTime: 2022-04-12 10:09:23
+ * @LastEditTime: 2022-04-17 16:37:42
 -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
+
 <body>
   <div id="container">
     <span id="span1">span</span>
@@ -25,30 +27,34 @@
 
 </body>
 
-    <script>
-      // let dom = document.getElementById('span1')
-      // console.log('dom',dom);
-     let str = '18235278481'
+<script>
+  // let dom = document.getElementById('span1')
+  // console.log('dom',dom);
+  let str = '18235278481'
 
-     function format(str){
-       let a =str.match(/(?<=\d{3})\d{4}/g)
-        // let a = str.replace(/(?<=\d{3})\d{4}/g,' $&')
-      console.log('a',a)
+  function format(str) {
+    let a = str.match(/(?<=\d{3})\d{4}/g)
+    // let a = str.replace(/(?<=\d{3})\d{4}/g,' $&')
+    console.log('a', a)
 
-     }
+  }
 
-     let reg = /1(3|4|5|6|7|8|9)\d{9}/
-     format(str)
-
-
-     let str1 = '20260622'
-
-     let str2 = '20210111'
-
-     console.log(parseInt(str1)<parseInt(str2));
+  let reg = /1(3|4|5|6|7|8|9)\d{9}/
+  format(str)
 
 
+  let str1 = '20260622'
 
-     console.log(parseInt(result))
-    </script>
+  let str2 = '20210111'
+
+  console.log(parseInt(str1) < parseInt(str2));
+
+
+
+  // console.log(parseInt(result))
+
+
+ 
+</script>
+
 </html>

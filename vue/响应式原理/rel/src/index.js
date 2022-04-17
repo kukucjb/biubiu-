@@ -4,7 +4,7 @@
  * @Author: CC
  * @Date: 2022-04-11 21:21:40
  * @LastEditors: sueRimn
- * @LastEditTime: 2022-04-14 19:47:10
+ * @LastEditTime: 2022-04-17 16:42:04
  */
 /* 
  作用：
@@ -12,21 +12,23 @@
 
 */
 
-import {observe} from './observe'
+import {
+  observe
+} from './observe'
 
 let obj = {
-  a: {
-    m: {
-      n: 5
-    }
-  },
+  // a: {
+    // m: {
+    //   n: 5
+    // }
+  // },
   b: 10,
-  c:[1,2,3,4]
+  c: [1, 2, 3, 4]
 };
 
 observe(obj)
-
 // console.log(obj.a.m.n);
-obj.c.push(5)
-console.log(obj.c);
+obj.c.splice(1,1,[  ])
 
+// console.log('obj.c',obj.c);  
+console.log(obj.c);

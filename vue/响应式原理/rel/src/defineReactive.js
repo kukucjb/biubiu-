@@ -4,7 +4,7 @@
  * @Author: CC
  * @Date: 2022-04-12 20:25:02
  * @LastEditors: sueRimn
- * @LastEditTime: 2022-04-13 20:18:43
+ * @LastEditTime: 2022-04-17 15:45:36
  */
 import {observe} from './observe'
 
@@ -28,7 +28,7 @@ export  function defineReactive(data, key, value) {
     },
     // 对设置值的拦截
     set(newVal) {
-      console.log('设置' + key);
+      console.log('设置' + key);  
       value = newVal
       // 当设置了新值 这个新值也要被observe
       childOb = observe(newVal)
