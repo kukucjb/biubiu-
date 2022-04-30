@@ -4,7 +4,7 @@
  * @Author: CC
  * @Date: 2022-03-15 15:19:29
  * @LastEditors: sueRimn
- * @LastEditTime: 2022-03-22 21:10:06
+ * @LastEditTime: 2022-04-18 15:11:03
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -47,6 +47,36 @@
     let str1 = '1234567890'
 
     format(str1)
+
+    {
+      let obj = {
+        name: 'zhangsn',
+        age: "18",
+        t: {
+          text: 'aaa',
+          value: 'bbb'
+        },
+        f: {
+          text: "ccc",
+          value: 'ddd'
+        }
+      }
+
+      function formated(obj) {
+        let result = {}
+        for (let item in obj) {
+          if (typeof obj[item] == 'object') {
+            result[item] = obj[item].value;
+          } else {
+            result[item] = obj[item]
+          }
+        }
+        return result
+      }
+      console.log(formated(obj));
+
+    }
+
 
 
   </script>

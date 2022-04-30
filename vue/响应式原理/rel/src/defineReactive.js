@@ -4,11 +4,16 @@
  * @Author: CC
  * @Date: 2022-04-12 20:25:02
  * @LastEditors: sueRimn
- * @LastEditTime: 2022-04-17 15:45:36
+ * @LastEditTime: 2022-04-18 20:13:45
  */
 import {observe} from './observe'
+import Dep from './Dep'
 
 export  function defineReactive(data, key, value) {
+  const dep = new Dep()
+
+
+
   if (arguments.length == 2) {
     value = data[key];
   }
@@ -32,6 +37,7 @@ export  function defineReactive(data, key, value) {
       value = newVal
       // 当设置了新值 这个新值也要被observe
       childOb = observe(newVal)
+      dep.notify()
     }
   })
 }

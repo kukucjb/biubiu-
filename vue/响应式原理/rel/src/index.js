@@ -4,7 +4,7 @@
  * @Author: CC
  * @Date: 2022-04-11 21:21:40
  * @LastEditors: sueRimn
- * @LastEditTime: 2022-04-17 16:42:04
+ * @LastEditTime: 2022-04-18 20:15:38
  */
 /* 
  作用：
@@ -23,12 +23,20 @@ let obj = {
     // }
   // },
   b: 10,
-  c: [1, 2, 3, 4]
+  c: [1, 2, 3, 4],
+  d:{
+    per:{
+      name:'zs',
+      age:''
+    }
+  }
 };
 
 observe(obj)
-// console.log(obj.a.m.n);
-obj.c.splice(1,1,[  ])
 
-// console.log('obj.c',obj.c);  
-console.log(obj.c);
+// console.log('obj',obj);
+// console.log(obj.a.m.n);
+// obj.c.splice(1,1,[  ])
+
+// console.log('obj.c',obj.c)
+obj.b = 10;
